@@ -16,20 +16,6 @@ TUNE_UP='  ______                    __  __
 
 echo -e "$TUNE_UP"
 
-# Update system packages
-echo "Updating package lists..."
-sudo apt-get update >/dev/null
-
-# Upgrade system packages
-echo "Upgrading packages..."
-sudo apt-get upgrade -y >/dev/null
-
-# Clone repository
-echo "Cloning repository..."
-sudo apt-get install -y git >/dev/null
-rm -rf ~/.local/share/tuneup
-git clone https://github.com/benotargiacomo/tuneup.git ~/.local/share/tuneup >/dev/null 2>&1
-
 # Checking distro
 DISTRO=$(cat /etc/os-release | grep -oP '(?<=^ID=).+' | tr -d '"')
 
@@ -41,10 +27,36 @@ fi
 case "$DISTRO" in
 "arch")
     echo "Starting installation for Arch..."
+
+    # Installs yay if not installed
+    command -v yay >/dev/null 2>&1 || sudo pacman -S --noconfirm yay
+
+    # Update System
+    echo "Updating system..."
+    yay -Syyuu --noconfirm >/dev/null 2>&1
+
+    # Clone repository
+    echo "Cloning repository..."
+    command -v git >/dev/null 2>&1 || sudo pacman -S --noconfirm git
+    rm -rf ~/.local/share/tuneup
+    git clone https://github.com/benotargiacomo/tuneup.git ~/.local/share/tuneup >/dev/null 2>&1
+
     source ~/.local/share/tuneup/distro/arch.sh
     ;;
 "pop")
     echo "Starting installation for Pop!_OS..."
+
+    # Update system packages
+    echo "Updating system..."
+    sudo apt-get update >/dev/null
+    sudo apt-get upgrade -y >/dev/null
+
+    # Clone repository
+    echo "Cloning repository..."
+    command -v git >/dev/null 2>&1 || sudo apt-get install -y git >/dev/null
+    rm -rf ~/.local/share/tuneup
+    git clone https://github.com/benotargiacomo/tuneup.git ~/.local/share/tuneup >/dev/null 2>&1
+
     source ~/.local/share/tuneup/distro/pop.sh
     ;;
 *)
