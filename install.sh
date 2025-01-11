@@ -29,3 +29,26 @@ echo "Cloning repository..."
 sudo apt-get install -y git >/dev/null
 rm -rf ~/.local/share/tuneup
 git clone https://github.com/benotargiacomo/tuneup.git ~/.local/share/tuneup >/dev/null 2>&1
+
+# Checking distro
+DISTRO=$(cat /etc/os-release | grep -oP '(?<=^ID=).+' | tr -d '"')
+
+if [ -z "$DISTRO" ]; then
+    echo "Error: Could not determine distribution"
+    exit 1
+fi
+
+case "$DISTRO" in
+"arch")
+    echo "Starting installation for Arch..."
+    source ~/.local/share/tuneup/distro/arch.sh
+    ;;
+"pop")
+    echo "Starting installation for Pop!_OS..."
+    source ~/.local/share/tuneup/distro/pop.sh
+    ;;
+*)
+    echo "Error: Unsupported distribution: $DISTRO"
+    exit 1
+    ;;
+esac
