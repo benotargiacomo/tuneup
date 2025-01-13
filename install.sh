@@ -57,7 +57,7 @@ case "$DISTRO" in
     rm -rf ~/.local/share/tuneup
     git clone https://github.com/benotargiacomo/tuneup.git ~/.local/share/tuneup >/dev/null 2>&1
 
-    source ~/.local/share/tuneup/distro/pop.sh
+    source ~/.local/share/tuneup/distro/popos.sh
     ;;
 *)
     echo "Error: Unsupported distribution: $DISTRO"
