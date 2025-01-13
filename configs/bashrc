@@ -42,7 +42,7 @@ alias vim="nvim"
 alias untgz="tar -xzf"
 
 # System
-alias bat="bat --style=auto"
+alias bat="batcat --style=auto"
 alias ll="eza -la --group-directories-first --color=auto --icons --git"
 alias lt="eza --tree --level=2 --long --icons --git"
 
@@ -54,8 +54,7 @@ alias ....="cd ../../.."
 
 # Git
 alias gcm="git commit -m"
-alias gcm="git commit -a -m"
-alias gam="git commit -a --amend"
+alias gcma="git commit -a --amend"
 alias gp="git push origin HEAD"
 alias gpu="git pull origin"
 alias gst="git status"
@@ -74,11 +73,16 @@ alias dpa="docker ps -a"
 alias dl="docker ps -l -q"
 alias dx="docker exec -it"
 
-# Find a file and copy its path to clipboard
-f() { echo "$(fdfind --type f --exclude '*/.*' | fzf --preview 'bat --style=numbers --color=always {}')" | xclip -selection clipboard }
+f() {
+    echo "$(fdfind --type f --exclude '*/.*' | fzf --preview 'batcat --style=numbers --color=always {}')" | xclip -selection clipboard
+}
 
 # Find a file and open it in Neovim
-fv() { nvim "$(fdfind --type f --exclude '*/.*' | fzf --preview 'bat --style=numbers --color=always {}')" }
+fv() {
+    nvim "$(fdfind --type f --exclude '*/.*' | fzf --preview 'batcat --style=numbers --color=always {}')"
+}
 
 # Compress a directory
-tgz() { tar -czf "${1%/}.tar.gz" "${1%/}"; }
+tgz() {
+    tar -czf "${1%/}.tar.gz" "${1%/}"
+}
