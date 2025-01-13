@@ -2,7 +2,7 @@
 set -e
 
 # Check if GNOME is the current desktop environment
-if [ "$XDG_CURRENT_DESKTOP" != "GNOME" ]; then
+if [[ "$XDG_CURRENT_DESKTOP" != *"GNOME"* ]]; then
     echo "Error: GNOME desktop environment required"
     echo "Current desktop environment: $XDG_CURRENT_DESKTOP"
     exit 1
