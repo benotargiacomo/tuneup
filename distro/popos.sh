@@ -12,7 +12,8 @@ fi
 gsettings set org.gnome.desktop.screensaver lock-enabled false
 gsettings set org.gnome.desktop.session idle-delay 0
 
-sudo apt install -y fzf fd-find ripgrep bat eza httpie jq btop tmux zsh tldr gpg zoxide
+sudo apt install -y fzf fd-find ripgrep bat httpie jq btop tmux zsh tldr gpg zoxide
+# TODO: Add eza
 # sudo apt install -y unzip ca-certificates
 # sudo apt install -y ninja-build gettext cmake curl build-essential
 
