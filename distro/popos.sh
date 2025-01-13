@@ -19,7 +19,7 @@ sudo apt install -y fzf fd-find ripgrep bat eza httpie jq btop tmux zsh tldr gpg
 mkdir -p ~/.config
 
 # Run installers
-for installer in ~/.local/share/tuneup/install/popos/*.sh; do source $installer; done
+for installer in ~/.local/share/tuneup/distro/popos/*.sh; do source $installer; done
 
 # Enable sleep and lock screen
 gsettings set org.gnome.desktop.screensaver lock-enabled true
