@@ -12,17 +12,18 @@ fi
 gsettings set org.gnome.desktop.screensaver lock-enabled false
 gsettings set org.gnome.desktop.session idle-delay 0
 
+echo "Installing essential packages..."
 # TODO: Add eza
-sudo apt install -y \
+sudo apt-get install -y \
     fzf fd-find ripgrep bat httpie jq btop tmux tldr unzip curl \
     ninja-build gettext cmake curl build-essential >/dev/null
 
 mkdir -p ~/.config
 
 # Run installers
+echo "Running installers..."
 for installer in ~/.local/share/tuneup/distro/popos/*.sh; do source $installer; done
 
 # Enable sleep and lock screen
 gsettings set org.gnome.desktop.screensaver lock-enabled true
 gsettings set org.gnome.desktop.session idle-delay 300
-
