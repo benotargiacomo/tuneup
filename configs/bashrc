@@ -42,7 +42,7 @@ export EDITOR="nvim"
 # Prompt
 DIR='\[\e[38;5;217m\]\W\[\e[0m\]'
 GIT='\[\e[38;5;250m\]$(git branch 2>/dev/null | grep -e "^*" | sed "s/^* /[/" | sed "s/$/]/")\[\e[0m\]'
-SYMBOL='\[\e[38;5;217m\]➜[\e[0m\]'
+SYMBOL='\[\e[38;5;217m\]➜\[\e[0m\]'
 PS1="${DIR}${GIT} ${SYMBOL} "
 
 # Tools
@@ -95,7 +95,6 @@ tgz() {
     tar -czf "${1%/}.tar.gz" "${1%/}"
 }
 
-
-if command -v starship &>/dev/null; then
-    eval "$(starship init bash)"
-fi
+# if command -v starship &>/dev/null; then
+#     eval "$(starship init bash)"
+# fi
