@@ -36,6 +36,15 @@ fi
 # Set complete path
 export PATH="./bin:$HOME/.local/bin:$PATH"
 
+# Set default editor
+export EDITOR="nvim"
+
+# Prompt
+DIR='\[\e[38;5;217m\]\W\[\e[0m\]'
+GIT='\[\e[38;5;250m\]$(git branch 2>/dev/null | grep -e "^*" | sed "s/^* /[/" | sed "s/$/]/")\[\e[0m\]'
+SYMBOL='\[\e[38;5;217m\]➜[\e[0m\]'
+PS1="${DIR}${GIT} ${SYMBOL} "
+
 # Tools
 alias c="code"
 alias vim="nvim"
@@ -86,12 +95,6 @@ tgz() {
     tar -czf "${1%/}.tar.gz" "${1%/}"
 }
 
-# Prompt
-# DIR='\[\e[38;5;217m\]\W\[\e[0m\]'
-# GIT='\[\e[38;5;250m\]$(git branch 2>/dev/null | grep -e "^*" | sed "s/^* //")\[\e[0m\]'
-# USER='\[\e[0;31m\]\$ \[\e[0m\]'
-# SYMBOL='➜'
-# PS1="${DIR} ${GIT} ${USER} ${SYMBOL} "
 
 if command -v starship &>/dev/null; then
     eval "$(starship init bash)"
