@@ -92,3 +92,7 @@ tgz() {
 # USER='\[\e[0;31m\]\$ \[\e[0m\]'
 # SYMBOL='➜'
 # PS1="${DIR} ${GIT} ${USER} ${SYMBOL} "
+
+if command -v starship &>/dev/null; then
+    eval "$(starship init bash)"
+fi
