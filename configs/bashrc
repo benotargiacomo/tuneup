@@ -16,6 +16,9 @@ if [[ "$TERM" == "xterm-color" || "$TERM" == *-256color ]]; then
     force_color_prompt=yes
 fi
 
+# Colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
 # Autocompletion
 if ! shopt -oq posix; then
     if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -29,9 +32,6 @@ if command -v fzf &>/dev/null; then
     source /usr/share/bash-completion/completions/fzf
     source /usr/share/doc/fzf/examples/key-bindings.bash
 fi
-
-# Colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # Set complete path
 export PATH="./bin:$HOME/.local/bin:$PATH"
@@ -47,7 +47,6 @@ alias ll="eza -la --group-directories-first --color=auto --icons --git"
 alias lt="eza --tree --level=2 --long --icons --git"
 
 # Directory
-alias cd="z"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -86,3 +85,10 @@ fv() {
 tgz() {
     tar -czf "${1%/}.tar.gz" "${1%/}"
 }
+
+# Prompt
+# DIR='\[\e[38;5;217m\]\W\[\e[0m\]'
+# GIT='\[\e[38;5;250m\]$(git branch 2>/dev/null | grep -e "^*" | sed "s/^* //")\[\e[0m\]'
+# USER='\[\e[0;31m\]\$ \[\e[0m\]'
+# SYMBOL='➜'
+# PS1="${DIR} ${GIT} ${USER} ${SYMBOL} "
