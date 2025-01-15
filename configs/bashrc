@@ -100,5 +100,5 @@ tgz() {
 # fi
 
 if command -v mise &>/dev/null; then
-    eval "$(~/.local/bin/mise activate bash)"
+    eval "$(mise activate bash)"
 fi
