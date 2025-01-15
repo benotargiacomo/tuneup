@@ -15,7 +15,7 @@ gsettings set org.gnome.desktop.session idle-delay 0
 echo "Installing essential packages..."
 # TODO: Add eza
 sudo apt-get install -y \
-    fzf fd-find ripgrep bat httpie jq btop tmux tldr unzip curl \
+    fzf fd-find ripgrep bat httpie jq btop tldr unzip curl \
     ninja-build gettext cmake curl build-essential >/dev/null
 
 mkdir -p ~/.config
