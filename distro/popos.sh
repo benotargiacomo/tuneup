@@ -13,10 +13,18 @@ gsettings set org.gnome.desktop.screensaver lock-enabled false
 gsettings set org.gnome.desktop.session idle-delay 0
 
 echo "Installing essential packages..."
-# TODO: Add eza
 sudo apt-get install -y \
-    fzf fd-find ripgrep bat httpie jq btop tldr unzip curl \
-    ninja-build gettext cmake curl build-essential >/dev/null
+    fzf fd-find ripgrep bat httpie jq btop tldr unzip curl build-essential >/dev/null
+
+# eza
+sudo apt update
+sudo apt install -y gpg
+sudo mkdir -p /etc/apt/keyrings
+wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
+echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
+sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
+sudo apt update
+sudo apt install -y eza
 
 mkdir -p ~/.config
 
