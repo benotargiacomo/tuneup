@@ -52,8 +52,8 @@ alias untgz="tar -xzf"
 
 # System
 alias bat="batcat --style=auto"
-alias ll="eza -la --group-directories-first --color=auto --icons --git"
-alias lt="eza --tree --level=2 --long --icons --git"
+alias ll="eza -la --group-directories-first --color=auto --git"
+alias lt="eza --tree --level=2 --long --git"
 
 # Directory
 alias ..="cd .."
