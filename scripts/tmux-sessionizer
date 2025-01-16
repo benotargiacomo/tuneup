@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# Made by https://github.com/theprimeagen
+# Modified some variable names for clarity
+# Resolve full path before getting directory name (handles "." as argument)
+
+if [[ $# -eq 1 ]]; then
+    project_directory=$1
+else
+    project_directory=$(find \
+        ~/code \
+        ~/code/personal \
+        ~/code/work \
+        ~/code/github \
+        -mindepth 1 -maxdepth 1 -type d | fzf-tmux \
+        -p 60%,50%)
+fi
+
+if [[ -z $project_directory ]]; then
+    exit 0
+fi
+
+project_name=$(basename $(realpath "$project_directory") | tr . _)
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    tmux new-session -s $project_name -c $project_directory
+    exit 0
+fi
+
+if ! tmux has-session -t=$project_name 2>/dev/null; then
+    tmux new-session -ds $project_name -c $project_directory
+fi
+
+tmux switch-client -t $project_name
