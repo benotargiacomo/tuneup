@@ -81,7 +81,7 @@ alias dl="docker ps -l -q"
 alias dx="docker exec -it"
 
 # Binds
-bind '"\C-f":"sss\n"'
+bind "'\C-f': 'sss\C-m'"
 
 f() {
     echo "$(fdfind --type f --exclude '*/.*' | fzf --preview 'batcat --style=numbers --color=always {}')" | xclip -selection clipboard
