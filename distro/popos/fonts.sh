@@ -1,6 +1,8 @@
-# https://www.jetbrains.com/lp/mono/
-
-[ ! -d ~/.local/share/fonts ] && mkdir -p ~/.local/share/fonts
-unzip ~/.local/share/tuneup/configs/fonts/JetBrainsMono-2.304.zip -d ~/.local/share/fonts
+[ ! -d ~/.local/share/fonts ] && mkdir -p ~/.local/share/fonts/ttf
+cd /tmp
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip
+unzip -j JetBrainsMono.zip -d ~/.local/share/fonts/ttf
+rm JetBrainsMono.zip
 
 fc-chache -f -v
+cd ~
