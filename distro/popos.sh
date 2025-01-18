@@ -29,8 +29,8 @@ sudo apt install -y eza
 mkdir -p ~/.config
 
 # Run installers
-echo "Running installers..."
-for installer in ~/.local/share/tuneup/distro/popos/*.sh; do source $installer; done
+echo "Running terminal installers..."
+for installer in ~/.local/share/tuneup/distro/popos/terminal/*.sh; do source $installer; done
 
 # Enable sleep and lock screen
 gsettings set org.gnome.desktop.screensaver lock-enabled true
