@@ -1,0 +1,70 @@
+set clipboard+=unnamed
+set ignorecase
+set smartcase
+set relativenumber
+set number
+set commentary
+set scrolloff=10
+
+set ideajoin
+set visualbell
+
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+
+let mapleader = " "
+
+" system clipboard
+" vmap <leader>y "*y
+" vmap <leader>d "*d
+" nmap <leader>y "*yy
+" nmap <leader>p "*p
+" nmap <leader>P "*P
+" vmap <leader>p "*p
+" vmap <leader>P "*P
+
+" Exclusão sem copiar para o registro padrão
+" nnoremap x "_x
+
+" Colagem sem copiar (excluindo para o registro nulo)
+" xnoremap p "_dP
+
+" Yank para a área de transferência do sistema
+" nnoremap <leader>y "+y
+" vnoremap <leader>y "+y
+" nnoremap <leader>Y "+Y
+
+" Exclusão sem copiar (excluindo para o registro nulo)
+" nnoremap <leader>d "_d
+" vnoremap <leader>d "_d
+
+" Actions
+nmap <S-h> <action>(PreviousTab)
+nmap <S-l> <action>(NextTab)
+nmap ]d <action>(GotoNextError)
+nmap [d <action>(GotoPreviousError)
+nmap <leader>fm <Action>(ReformatCode)
+nmap <leader>ff <Action>(SearchEverywhere)
+
+" Move lines
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Scroll
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Window Navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <leader>v <C-w>v
+nnoremap <leader>h <C-w>s
+nnoremap <leader>x :close<CR>
+
+set NERDTree
+let g:NERDTreeMapActivateNode='l'
+let g:NERDTreeMapJumpParent='h'
