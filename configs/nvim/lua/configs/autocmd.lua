@@ -1,8 +1,7 @@
+local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", {
-	clear = true,
-})
 
+local highlight_group = augroup("yankhighlight", { clear = true })
 autocmd({ "TextYankPost" }, {
 	group = highlight_group,
 	pattern = "*",
@@ -13,8 +12,9 @@ autocmd({ "TextYankPost" }, {
 	end,
 })
 
--- autocmd({"BufWinEnter"}, {
---     callback = function()
---         vim.cmd("set formatoptions-=cro")
---     end
--- })
+local customGroup = augroup("customGroup", {})
+autocmd({ "BufWritePre" }, {
+	group = customGroup,
+	pattern = "*",
+	command = [[%s/\s\+$//e]],
+})
