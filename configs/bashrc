@@ -12,8 +12,8 @@ shopt -s checkwinsize
 
 # Colors
 if [[ "$TERM" == "xterm-color" || "$TERM" == *-256color ]]; then
-    color_prompt=yes
-    force_color_prompt=yes
+	color_prompt=yes
+	force_color_prompt=yes
 fi
 
 # Colored GCC warnings and errors
@@ -21,16 +21,16 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # Autocompletion
 if ! shopt -oq posix; then
-    if [ -f /usr/share/bash-completion/bash_completion ]; then
-        . /usr/share/bash-completion/bash_completion
-    elif [ -f /etc/bash_completion ]; then
-        . /etc/bash_completion
-    fi
+	if [ -f /usr/share/bash-completion/bash_completion ]; then
+		. /usr/share/bash-completion/bash_completion
+	elif [ -f /etc/bash_completion ]; then
+		. /etc/bash_completion
+	fi
 fi
 
 if command -v fzf &>/dev/null; then
-    source /usr/share/bash-completion/completions/fzf
-    source /usr/share/doc/fzf/examples/key-bindings.bash
+	source /usr/share/bash-completion/completions/fzf
+	source /usr/share/doc/fzf/examples/key-bindings.bash
 fi
 
 # Set complete path
@@ -49,11 +49,17 @@ PS1="${DIR}${GIT} ${SYMBOL} "
 alias c="code"
 alias vim="nvim"
 alias untgz="tar -xzf"
+alias lz="lazygit"
+alias python="python3"
+alias pv="python3 -m venv .venv && source .venv/bin/activate"
 
 # System
 alias bat="batcat --style=auto"
-alias ll="eza -la --group-directories-first --color=auto --git"
+alias la="eza -la --group-directories-first --color=auto --git"
+alias ll="eza -l --group-directories-first --color=auto --git"
+alias lS="eza -lhS --group-directories-first --color=auto --git"
 alias lt="eza --tree --level=2 --long --git"
+alias fs="find . -type f -exec du -h {} + | sort -rh"
 
 # Directory
 alias ..="cd .."
@@ -83,18 +89,19 @@ alias dx="docker exec -it"
 # Binds
 bind "'\C-f': 'sss\C-m'"
 
+# Find a file and copy the path to clipboard
 f() {
-    echo "$(fdfind --type f --exclude '*/.*' | fzf --preview 'batcat --style=numbers --color=always {}')" | xclip -selection clipboard
+	echo "$(fdfind --type f --exclude '*/.*' | fzf --preview 'batcat --style=numbers --color=always {}')" | xclip -selection clipboard
 }
 
 # Find a file and open it in Neovim
 fv() {
-    nvim "$(fdfind --type f --exclude '*/.*' | fzf --preview 'batcat --style=numbers --color=always {}')"
+	nvim "$(fdfind --type f --exclude '*/.*' | fzf --preview 'batcat --style=numbers --color=always {}')"
 }
 
 # Compress a directory
 tgz() {
-    tar -czf "${1%/}.tar.gz" "${1%/}"
+	tar -czf "${1%/}.tar.gz" "${1%/}"
 }
 
 # if command -v starship &>/dev/null; then
@@ -102,5 +109,5 @@ tgz() {
 # fi
 
 if command -v mise &>/dev/null; then
-    eval "$(mise activate bash)"
+	eval "$(mise activate bash)"
 fi
