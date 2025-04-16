@@ -13,6 +13,9 @@ return {
 
 		require("telescope").setup({
 			defaults = {
+				file_ignore_patterns = {
+					"node_modules/*",
+				},
 				layout_strategy = "horizontal",
 				layout_config = {
 					horizontal = {
@@ -21,6 +24,12 @@ return {
 				},
 				path_display = { "smart" },
 				mappings = {
+					-- <C-x>	Go to file selection as a split
+					-- <C-v>	Go to file selection as a vsplit
+					-- <C-u>	Scroll up in preview window
+					-- <C-d>	Scroll down in preview window
+					-- <C-c>	Close telescope (insert mode)
+					-- <Esc>	Close telescope (in normal mode)
 					i = {
 						["<C-k>"] = actions.move_selection_previous, -- move to prev result
 						["<C-j>"] = actions.move_selection_next, -- move to next result
@@ -52,20 +61,28 @@ return {
 		-- Enable telescope fzf native, if installed
 		pcall(require("telescope").load_extension, "fzf")
 
-		-- Fzf neovim config files
-		vim.keymap.set("n", "<space>en", function()
-			require("telescope.builtin").find_files({
-				cwd = vim.fn.stdpath("config"),
-			})
-		end)
-
 		-- Set keymaps (see :help telescope.builtin)
 		local builtin = require("telescope.builtin")
 		vim.keymap.set("n", "<leader>ff", builtin.find_files)
 		vim.keymap.set("n", "<leader>fg", builtin.live_grep)
-		vim.keymap.set("n", "<leader>gf", builtin.git_files)
 		vim.keymap.set("n", "<leader>fd", builtin.diagnostics)
 		vim.keymap.set("n", "<leader>fh", builtin.help_tags)
-		vim.keymap.set("n", "<leader>fb", builtin.buffers)
+		vim.keymap.set("n", "<leader>gf", builtin.git_files)
+		vim.keymap.set("n", "<leader>fk", builtin.keymaps)
+		vim.keymap.set("n", "<leader><leader>", builtin.buffers)
+
+		-- Fzf neovim config files
+		vim.keymap.set("n", "<leader>en", function()
+			builtin.find_files({
+				cwd = vim.fn.stdpath("config"),
+			})
+		end)
+
+		vim.keymap.set("n", "<leader>f/", function()
+			builtin.live_grep({
+				grep_open_files = true,
+				prompt_title = "Live Grep in Open Files",
+			})
+		end)
 	end,
 }

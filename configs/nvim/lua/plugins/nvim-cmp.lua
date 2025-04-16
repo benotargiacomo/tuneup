@@ -2,8 +2,6 @@ return {
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
 	dependencies = {
-		"hrsh7th/cmp-buffer", -- source for text in buffer
-		"hrsh7th/cmp-path", -- source for file system paths
 		{
 			"L3MON4D3/LuaSnip", -- snippet engine
 			-- follow latest release.
@@ -11,6 +9,8 @@ return {
 		},
 		"saadparwaiz1/cmp_luasnip", -- for autocompletion
 		"rafamadriz/friendly-snippets", -- useful snippets
+		"hrsh7th/cmp-buffer", -- source for text in buffer
+		"hrsh7th/cmp-path", -- source for file system paths
 		-- Adds LSP completion capabilities
 		"hrsh7th/cmp-nvim-lsp",
 	},
@@ -43,13 +43,13 @@ return {
 
 			mapping = cmp.mapping.preset.insert({
 				["<C-k>"] = cmp.mapping.select_prev_item({}),
-				["<C-n>"] = cmp.mapping.select_prev_item({}),
+				["<C-p>"] = cmp.mapping.select_prev_item({}),
 				["<C-j>"] = cmp.mapping.select_next_item({}),
-				["<C-p>"] = cmp.mapping.select_next_item({}),
+				["<C-n>"] = cmp.mapping.select_next_item({}),
 				["<C-b>"] = cmp.mapping.scroll_docs(-1),
 				["<C-f>"] = cmp.mapping.scroll_docs(1),
 				["<C-Space>"] = cmp.mapping.complete(),
-				["<C-e>"] = cmp.mapping.abort(),
+				["<C-c>"] = cmp.mapping.abort(),
 				["<CR>"] = cmp.mapping.confirm({
 					behavior = cmp.ConfirmBehavior.Replace,
 					select = true,

@@ -2,34 +2,34 @@ return {
 	"neovim/nvim-lspconfig",
 	-- event = { "BufReadPre", "BufNewFile" },
 	dependencies = { -- Automatically install LSPs to stdpath for neovim
-		{
-			"williamboman/mason.nvim",
-			cmd = "Mason",
-		},
+		{ "williamboman/mason.nvim", cmd = "Mason" },
 		"williamboman/mason-lspconfig.nvim", -- Automatically install linters and formatters
 		"WhoIsSethDaniel/mason-tool-installer.nvim", -- Useful status updates for LSP
 		-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-		{
-			"j-hui/fidget.nvim",
-			opts = {},
-		},
+		{ "j-hui/fidget.nvim", opts = {} },
 		{
 			"folke/lazydev.nvim",
 			ft = "lua", -- only load on lua files
 			opts = {
 				library = { -- See the configuration section for more details
 					-- Load luvit types when the `vim.uv` word is found
-					{
-						path = "${3rd}/luv/library",
-						words = { "vim%.uv" },
-					},
+					{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 				},
 			},
 		},
+		-- Allows extra capabilities provided by nvim-cmp
+		"hrsh7th/cmp-nvim-lsp",
 	},
 	opts = {
-		inlayHints = {
-			enable = true,
+		inlay_hints = {
+			enabled = true,
+			exclude = { "vue" }, -- filetypes for which you don't want to enable inlay hints
+		},
+		-- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
+		-- Be aware that you also will need to properly configure your LSP server to
+		-- provide the code lenses.
+		codelens = {
+			enabled = false,
 		},
 	},
 	config = function()
@@ -50,16 +50,17 @@ return {
 
 			local builtin = require("telescope.builtin")
 
-			nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-			nmap("gd", builtin.lsp_definitions, "Go to Definition")
-			nmap("gD", vim.lsp.buf.declaration, "Go to Declaration")
-			nmap("gr", builtin.lsp_references, "Go to References")
-			nmap("gI", builtin.lsp_implementations, "Go to Implementation")
-			nmap("<leader>dc", vim.lsp.buf.signature_help, "Signature Documentation")
-			nmap("gs", builtin.lsp_document_symbols, "Document Symbols")
-			nmap("gS", builtin.lsp_dynamic_workspace_symbols, "Workspace Symbols")
-			nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
-			nmap("<leader>rn", vim.lsp.buf.rename, "Rename") -- Rename variable under cursor (grn)
+			nmap("K", vim.lsp.buf.hover)
+			nmap("gd", builtin.lsp_definitions) --  To jump back, press <C-t>
+			nmap("gD", vim.lsp.buf.declaration)
+			nmap("gr", builtin.lsp_references)
+			nmap("gi", builtin.lsp_implementations)
+			nmap("gt", require("telescope.builtin").lsp_type_definitions)
+			nmap("gh", vim.lsp.buf.signature_help)
+			nmap("gs", builtin.lsp_document_symbols)
+			nmap("gS", builtin.lsp_dynamic_workspace_symbols)
+			nmap("<leader>ca", vim.lsp.buf.code_action)
+			nmap("<leader>rn", vim.lsp.buf.rename) -- Rename variable under cursor (grn)
 		end
 
 		-- mason-lspconfig requires that these setup functions are called in this order
@@ -68,13 +69,14 @@ return {
 		require("mason-lspconfig").setup()
 
 		-- Organize imports
-		-- local function organize_imports()
-		-- 	local params = {
-		-- 		command = "_typescript.organizeImports",
-		-- 		arguments = {vim.api.nvim_buf_get_name(0)},
-		-- 	}
-		-- 	vim.lsp.buf.execute_command(params)
-		-- end
+		local function organize_imports()
+			local params = {
+				command = "_typescript.organizeImports",
+				arguments = { vim.api.nvim_buf_get_name(0) },
+				title = "",
+			}
+			vim.lsp.buf.execute_command(params)
+		end
 
 		local servers = {
 			clangd = {},
@@ -102,17 +104,28 @@ return {
 
 		mason_lspconfig.setup_handlers({
 			function(server_name)
-				require("lspconfig")[server_name].setup({
+				local server_config = {
 					on_attach = on_attach,
 					capabilities = capabilities,
 					settings = servers[server_name],
 					filetypes = (servers[server_name] or {}).filetypes,
-				})
+				}
+
+				-- Only add 'commands' if the server_name is 'ts_ls'
+				if server_name == "ts_ls" then
+					server_config.commands = {
+						OrganizeImports = {
+							organize_imports,
+							description = "Organize Imports",
+						},
+					}
+				end
+
+				-- Setup the server with the configured settings
+				require("lspconfig")[server_name].setup(server_config)
 			end,
 		})
 
-		require("mason-tool-installer").setup({
-			ensure_installed = tools,
-		})
+		require("mason-tool-installer").setup({ ensure_installed = tools })
 	end,
 }

@@ -8,6 +8,7 @@ return {
 	keys = {
 		{ "<C-n>", "<cmd>NvimTreeToggle<CR>" },
 		{ "<leader>ee", "<cmd>NvimTreeToggle<CR>" },
+		{ "<leader>ef", "<cmd>NvimTreeFindFile<cr>" },
 		{ "<leader>ec", "<cmd>NvimTreeCollapse<CR>" },
 		{ "<leader>er", "<cmd>NvimTreeRefresh<CR>" },
 	},
@@ -17,7 +18,9 @@ return {
 
 		require("nvim-tree").setup({
 			view = {
-				width = 30,
+				-- adaptive_size = true,
+				-- float = { enable = true },
+				width = 40,
 				relativenumber = true,
 			},
 			renderer = {
@@ -30,16 +33,12 @@ return {
 					},
 				},
 			},
-			actions = {
-				open_file = {
-					window_picker = {
-						enable = false,
-					},
-					quit_on_open = true,
-				},
-			},
 			git = {
 				ignore = false,
+			},
+			filters = {
+				custom = { "node_modules", ".vscode" },
+				dotfiles = true,
 			},
 		})
 	end,
