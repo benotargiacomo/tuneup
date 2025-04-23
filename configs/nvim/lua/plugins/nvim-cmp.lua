@@ -49,7 +49,7 @@ return {
 				["<C-b>"] = cmp.mapping.scroll_docs(-1),
 				["<C-f>"] = cmp.mapping.scroll_docs(1),
 				["<C-Space>"] = cmp.mapping.complete(),
-				["<C-c>"] = cmp.mapping.abort(),
+				["<C-e>"] = cmp.mapping.abort(),
 				["<CR>"] = cmp.mapping.confirm({
 					behavior = cmp.ConfirmBehavior.Replace,
 					select = true,

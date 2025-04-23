@@ -1,13 +1,16 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	-- dependencies = {
-	-- 	"nvim-treesitter/nvim-treesitter-textobjects",
-	-- },
+	dependencies = {
+		-- "nvim-treesitter/nvim-treesitter-textobjects",
+		"windwp/nvim-ts-autotag",
+	},
 	lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
 	event = { "BufReadPre", "BufNewFile" }, -- Triggered before reading a file into buffer
 	build = ":TSUpdate",
 	config = function()
-		require("nvim-treesitter.configs").setup({
+		local treesitter = require("nvim-treesitter.configs")
+
+		treesitter.setup({
 			ensure_installed = {
 				"bash",
 				"c",
@@ -32,6 +35,7 @@ return {
 			auto_install = false,
 			highlight = { enable = true, additional_vim_regex_highlighting = false },
 			indent = { enable = true },
+			autotag = { enable = true },
 			-- incremental_selection = {
 			-- 	enable = true,
 			-- 	keymaps = {

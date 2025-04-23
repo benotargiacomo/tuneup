@@ -33,13 +33,22 @@ return {
 					},
 				},
 			},
+			actions = {
+				open_file = {
+					window_picker = {
+						enable = false,
+					},
+					quit_on_open = true,
+				},
+			},
 			git = {
 				ignore = false,
 			},
 			filters = {
-				custom = { "node_modules", ".vscode" },
+				custom = { ".DS_Store", "node_modules", ".vscode" },
 				dotfiles = true,
 			},
 		})
 	end,
 }
+

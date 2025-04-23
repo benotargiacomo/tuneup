@@ -67,22 +67,6 @@ return {
 		vim.keymap.set("n", "<leader>fg", builtin.live_grep)
 		vim.keymap.set("n", "<leader>fd", builtin.diagnostics)
 		vim.keymap.set("n", "<leader>fh", builtin.help_tags)
-		vim.keymap.set("n", "<leader>gf", builtin.git_files)
-		vim.keymap.set("n", "<leader>fk", builtin.keymaps)
 		vim.keymap.set("n", "<leader><leader>", builtin.buffers)
-
-		-- Fzf neovim config files
-		vim.keymap.set("n", "<leader>en", function()
-			builtin.find_files({
-				cwd = vim.fn.stdpath("config"),
-			})
-		end)
-
-		vim.keymap.set("n", "<leader>f/", function()
-			builtin.live_grep({
-				grep_open_files = true,
-				prompt_title = "Live Grep in Open Files",
-			})
-		end)
 	end,
 }
