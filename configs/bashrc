@@ -109,9 +109,9 @@ install() {
     sudo dpkg -i "$1"
 }
 
-# if command -v starship &>/dev/null; then
-#     eval "$(starship init bash)"
-# fi
+if command -v starship &>/dev/null; then
+    eval "$(starship init bash)"
+fi
 
 if command -v mise &>/dev/null; then
     eval "$(mise activate bash)"
