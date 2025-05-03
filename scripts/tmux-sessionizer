@@ -8,10 +8,9 @@ if [[ $# -eq 1 ]]; then
     project_directory=$1
 else
     project_directory=$(find \
-        ~/code \
-        ~/code/personal \
-        ~/code/work \
-        ~/code/github \
+        ~/Code \
+        ~/Code/personal \
+        ~/Code/work \
         -mindepth 1 -maxdepth 1 -type d | fzf-tmux \
         -p 60%,50%)
 fi
