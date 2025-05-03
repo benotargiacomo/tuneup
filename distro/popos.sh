@@ -29,6 +29,11 @@ sudo apt-get install -y eza
 
 mkdir -p ~/.config
 
+# Remove Libre Office
+sudo apt-get remove --purge "libreoffice*"
+sudo apt-get clean
+sudo apt-get autoremove
+
 # Run installers
 echo "Running terminal installers..."
 for installer in ~/.local/share/tuneup/distro/popos/terminal/*.sh; do source $installer; done
