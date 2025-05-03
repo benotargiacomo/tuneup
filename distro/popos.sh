@@ -3,9 +3,9 @@ set -e
 
 # Check if GNOME is the current desktop environment
 if [[ "$XDG_CURRENT_DESKTOP" != *"GNOME"* ]]; then
-	echo "Error: GNOME desktop environment required"
-	echo "Current desktop environment: $XDG_CURRENT_DESKTOP"
-	exit 1
+    echo "Error: GNOME desktop environment required"
+    echo "Current desktop environment: $XDG_CURRENT_DESKTOP"
+    exit 1
 fi
 
 # Disable sleep and lock screen
@@ -14,7 +14,8 @@ gsettings set org.gnome.desktop.session idle-delay 0
 
 echo "Installing essential packages..."
 sudo apt-get install -y \
-	fzf fd-find ripgrep bat httpie jq btop tldr unzip curl build-essential xclip >/dev/null
+    imagemagick ffmpeg \
+    fzf fd-find ripgrep bat httpie jq btop tldr unzip curl build-essential xclip >/dev/null
 
 # eza
 sudo apt-get update
