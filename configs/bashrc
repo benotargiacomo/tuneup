@@ -50,7 +50,7 @@ alias c="code"
 alias vim="nvim"
 alias untgz="tar -xzf"
 alias lz="lazygit"
-alias python="python3"
+alias py="python3"
 alias pv="python3 -m venv .venv && source .venv/bin/activate"
 
 # System
