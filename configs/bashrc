@@ -2,10 +2,10 @@
 [[ $- != *i* ]] && return
 
 # History
-shopt -s histappend
 HISTCONTROL=ignoreboth
 HISTSIZE=10000
 HISTFILESIZE="${HISTSIZE}"
+shopt -s histappend
 
 # Update LINES and COLUMNS after each command
 shopt -s checkwinsize
@@ -34,15 +34,20 @@ if command -v fzf &>/dev/null; then
 fi
 
 # Set complete path
-export PATH="./bin:$HOME/.local/bin:$PATH"
+export PATH="./bin:$HOME/.local/bin:/usr/local/go/bin:$PATH"
 
 # Set default editor
 export EDITOR="nvim"
 
 # Prompt
-DIR='\[\e[38;5;217m\]\W\[\e[0m\]'
-GIT='\[\e[38;5;250m\]$(git branch 2>/dev/null | grep -e "^*" | sed "s/^* /[/" | sed "s/$/]/")\[\e[0m\]'
-SYMBOL='\[\e[38;5;217m\]➜\[\e[0m\]'
+PURPLE='\[\e[0;35m\]'
+ROSE='\[\e[38;5;217m\]'
+GREY='\[\e[38;5;250m\]'
+RESET='\[\e[0m\]'
+DIR="${ROSE}\W${RESET}"
+GIT="${PURPLE}\$(git branch 2>/dev/null | grep -e \"^*\" | sed \"s/^* /[/\" | sed \"s/$/]/\")${RESET}"
+SYMBOL="${ROSE}➜${RESET}"
+# HOST="${GREEN}\u@\h${RESET}"
 PS1="${DIR}${GIT} ${SYMBOL} "
 
 # Tools
@@ -52,6 +57,8 @@ alias untgz="tar -xzf"
 alias lz="lazygit"
 alias py="python3"
 alias pv="python3 -m venv .venv && source .venv/bin/activate"
+alias bm="npx @biomejs/biome init"
+alias gcp="curl -L -o copilot-instructions.md https://gist.githubusercontent.com/benotargiacomo/0c12da4735c849f037c56e0725dd8c23/raw/2ba3a178a45ed770fc808d47628037c7f05f2778/copilot-instructions.md"
 
 # System
 alias bat="batcat --style=auto"
@@ -61,58 +68,30 @@ alias lS="eza -lhS --group-directories-first --color=auto --git"
 alias lt="eza --tree --level=2 --long --git"
 alias fs="find . -type f -exec du -h {} + | sort -rh"
 
-# Directory
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-
-# Git
-alias gcm="git commit -m"
-alias gcma="git commit -a --amend"
-alias gp="git push origin HEAD"
-alias gpu="git pull origin"
-alias gst="git status"
-alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
-alias gco="git checkout"
-alias gbr="git branch"
-alias ga="git add"
-alias gap="git add -p"
-alias gr="git reset"
-
 # Docker
 alias dc="docker compose"
-alias dps="docker ps"
-alias dpa="docker ps -a"
-alias dl="docker ps -l -q"
 alias dx="docker exec -it"
 
 # Binds
-bind "'\C-f': 'sss\C-m'"
-
-# Find a file and copy the path to clipboard
-f() {
-    echo "$(fdfind --type f --exclude '*/.*' | fzf --preview 'batcat --style=numbers --color=always {}')" | xclip -selection clipboard
-}
+bind "'\C-f': 'ts\C-m'"
 
 # Find a file and open it in Neovim
-fv() {
-    nvim "$(fdfind --type f --exclude '*/.*' | fzf --preview 'batcat --style=numbers --color=always {}')"
-}
+fv() { nvim "$(fdfind --type f --exclude '*/.*' | fzf --preview 'batcat --style=numbers --color=always {}')"; }
 
 # Compress a directory
-tgz() {
-    tar -czf "${1%/}.tar.gz" "${1%/}"
-}
+tgz() { tar -czf "${1%/}.tar.gz" "${1%/}"; }
 
 # Instal deb package
-install() {
-    sudo dpkg -i "$1"
-}
-
-if command -v starship &>/dev/null; then
-    eval "$(starship init bash)"
-fi
+install() { sudo dpkg -i "$1"; }
 
 if command -v mise &>/dev/null; then
     eval "$(mise activate bash)"
+fi
+
+if command -v tmux &>/dev/null && [ -z "$TMUX" ]; then
+    ~/.local/bin/sss
+
+    if [[ $? -eq 0 ]]; then
+        exec $SHELL
+    fi
 fi

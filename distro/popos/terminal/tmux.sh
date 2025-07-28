@@ -6,5 +6,5 @@ cp ~/.local/share/tuneup/configs/tmux.conf ~/.tmux.conf
 mkdir -p ~/Code/personal ~/Code/work
 
 [ ! -d ~/.local/bin ] && mkdir -p ~/.local/bin
-cp ~/.local/share/tuneup/scripts/tmux-sessionizer ~/.local/bin/sss
-chmod +x ~/.local/bin/sss
+cp ~/.local/share/tuneup/scripts/tmux-sessionizer ~/.local/bin/ts
+chmod +x ~/.local/bin/ts

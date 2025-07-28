@@ -2,20 +2,33 @@
 
 # Made by https://github.com/theprimeagen
 # Modified some variable names for clarity
+# Added fallback session using $USER if project selection is cancelled
 # Resolve full path before getting directory name (handles "." as argument)
+
+SEARCH_DIRS=(
+    ~/Code
+    ~/Code/personal
+    ~/Code/work
+)
 
 if [[ $# -eq 1 ]]; then
     project_directory=$1
 else
     project_directory=$(find \
-        ~/Code \
-        ~/Code/personal \
-        ~/Code/work \
+        "${SEARCH_DIRS[@]}" \
         -mindepth 1 -maxdepth 1 -type d | fzf-tmux \
         -p 60%,50%)
 fi
 
 if [[ -z $project_directory ]]; then
+    default_session="${USER:-default}"
+
+    if ! tmux has-session -t="$default_session" 2>/dev/null; then
+        tmux new-session -s "$default_session" -c "$HOME"
+    fi
+
+    tmux attach-session -t "$default_session"
+
     exit 0
 fi
 
