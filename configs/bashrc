@@ -89,7 +89,7 @@ if command -v mise &>/dev/null; then
 fi
 
 if command -v tmux &>/dev/null && [ -z "$TMUX" ]; then
-    ~/.local/bin/sss
+    ~/.local/bin/ts
 
     if [[ $? -eq 0 ]]; then
         exec $SHELL
