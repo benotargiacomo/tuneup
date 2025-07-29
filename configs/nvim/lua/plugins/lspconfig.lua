@@ -60,7 +60,7 @@ return {
 			nmap("gs", builtin.lsp_document_symbols)
 			nmap("gS", builtin.lsp_dynamic_workspace_symbols)
 			nmap("<leader>ca", vim.lsp.buf.code_action)
-			nmap("<leader>rn", vim.lsp.buf.rename) -- Rename variable under cursor (grn)
+			nmap("<leader>n", vim.lsp.buf.rename) -- Rename variable under cursor (grn)
 		end
 
 		-- mason-lspconfig requires that these setup functions are called in this order
@@ -87,9 +87,10 @@ return {
 			tailwindcss = {},
 			lua_ls = {},
 			bashls = {},
+			rust_analyzer = {},
 		}
 
-		local tools = { "prettier", "eslint_d", "shfmt", "stylua", "gopls", "goimports" }
+		local tools = { "prettier", "biome", "eslint_d", "shfmt", "stylua", "gopls", "goimports", "rust-analyzer" }
 
 		-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 		local capabilities = vim.lsp.protocol.make_client_capabilities()

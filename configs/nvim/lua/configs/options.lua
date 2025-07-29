@@ -13,12 +13,12 @@ opt.ignorecase = true -- Ignore case for search
 opt.smartcase = true -- If search is small case it's case insensitive if search term Capital Case then it's case sensitive
 
 -- Indentation
--- opt.autoindent = true  -- New lines inherit the indentation of previous lines
-opt.smartindent = true -- Does the right thing (mostly) in programs
--- opt.expandtab = true -- Convert tabs to spaces
-opt.tabstop = 4 -- 4 spaces for a line indent
-opt.softtabstop = 4
+opt.tabstop = 4 -- Spaces for a line indent
 opt.shiftwidth = 4 -- 4 spaces indentation  when using '>>' '<<'
+-- opt.autoindent = true -- New lines inherit the indentation of previous lines
+opt.smartindent = true -- Does the right thing (mostly) in programs
+opt.expandtab = true -- Convert tabs to spaces
+-- opt.softtabstop = 4
 
 -- Interface
 opt.number = true -- Show line numbers

@@ -46,6 +46,13 @@ keymap("n", "<leader>x", "<cmd>close<CR>") -- close current split window
 -- keymap("n", "<S-h>", "<cmd>bprevious<CR>", {})
 -- keymap("n", "<S-l>", "<cmd>bnext<CR>", {})
 
+-- Tabs
+-- keymap("n", "<leader>to", "<cmd>tabnew<CR>")
+-- keymap("n", "<leader>tx", "<cmd>tabclose<CR>")
+-- keymap("n", "<leader>tn", "<cmd>tabn<CR>")
+-- keymap("n", "<leader>tp", "<cmd>tabp<CR>")
+-- keymap("n", "<leader>tf", "<cmd>tabnew %<CR>")
+
 -- Diagnostics
 keymap("n", "[d", vim.diagnostic.goto_prev)
 keymap("n", "]d", vim.diagnostic.goto_next)
