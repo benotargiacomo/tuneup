@@ -91,7 +91,7 @@ fi
 if command -v tmux &>/dev/null && [ -z "$TMUX" ]; then
     ~/.local/bin/ts
 
-    if [[ $? -eq 0 ]]; then
-        exec $SHELL
-    fi
+    # if [[ $? -eq 0 ]]; then
+    #     exec $SHELL
+    # fi
 fi
