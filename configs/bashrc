@@ -39,15 +39,25 @@ export PATH="./bin:$HOME/.local/bin:/usr/local/go/bin:$PATH"
 # Set default editor
 export EDITOR="nvim"
 
+# Colors
+PURPLE="\e[0;35m"
+ROSE="\e[38;5;217m"
+# GREY="\e[38;5;250m"
+RESET="\e[0m"
+
+parse_git_branch() {
+    local ref
+    ref=$(git symbolic-ref --quiet --short HEAD 2>/dev/null) ||
+        ref=$(git rev-parse --short HEAD 2>/dev/null) ||
+        return
+
+    printf "${PURPLE}[%s]${RESET}" "$ref"
+}
+
 # Prompt
-PURPLE='\[\e[0;35m\]'
-ROSE='\[\e[38;5;217m\]'
-GREY='\[\e[38;5;250m\]'
-RESET='\[\e[0m\]'
-DIR="${ROSE}\W${RESET}"
-GIT="${PURPLE}\$(git branch 2>/dev/null | grep -e \"^*\" | sed \"s/^* /[/\" | sed \"s/$/]/\")${RESET}"
-SYMBOL="${ROSE}➜${RESET}"
-# HOST="${GREEN}\u@\h${RESET}"
+DIR="\[\e[38;5;217m\]\W\[\e[0m\]"
+SYMBOL="\[\e[38;5;217m\]➜\[\e[0m\]"
+GIT="\$(parse_git_branch)"
 PS1="${DIR}${GIT} ${SYMBOL} "
 
 # Tools
@@ -55,16 +65,15 @@ alias c="code"
 alias vim="nvim"
 alias untgz="tar -xzf"
 alias lz="lazygit"
-alias py="python3"
-alias pv="python3 -m venv .venv && source .venv/bin/activate"
-alias bm="npx @biomejs/biome init"
-alias gcp="curl -L -o copilot-instructions.md https://gist.githubusercontent.com/benotargiacomo/0c12da4735c849f037c56e0725dd8c23/raw/2ba3a178a45ed770fc808d47628037c7f05f2778/copilot-instructions.md"
+alias ld="lazydocker"
+alias python="python3"
+alias penv="python3 -m venv .venv && source .venv/bin/activate"
+alias pserver="python3 -m http.server 5173"
 
 # System
 alias bat="batcat --style=auto"
 alias la="eza -la --group-directories-first --color=auto --git"
-alias ll="eza -l --group-directories-first --color=auto --git"
-alias lS="eza -lhS --group-directories-first --color=auto --git"
+alias ll="eza -lhS --group-directories-first --color=auto --git"
 alias lt="eza --tree --level=2 --long --git"
 alias fs="find . -type f -exec du -h {} + | sort -rh"
 
@@ -81,17 +90,6 @@ fv() { nvim "$(fdfind --type f --exclude '*/.*' | fzf --preview 'batcat --style=
 # Compress a directory
 tgz() { tar -czf "${1%/}.tar.gz" "${1%/}"; }
 
-# Instal deb package
-install() { sudo dpkg -i "$1"; }
-
 if command -v mise &>/dev/null; then
     eval "$(mise activate bash)"
-fi
-
-if command -v tmux &>/dev/null && [ -z "$TMUX" ]; then
-    ~/.local/bin/ts
-
-    # if [[ $? -eq 0 ]]; then
-    #     exec $SHELL
-    # fi
 fi
