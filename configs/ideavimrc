@@ -1,4 +1,4 @@
-set clipboard+=unnamed
+set clipboard=unnamedplus
 set ignorecase
 set smartcase
 set relativenumber
@@ -24,10 +24,10 @@ let mapleader = " "
 " vmap <leader>P "*P
 
 " Exclusão sem copiar para o registro padrão
-" nnoremap x "_x
+nnoremap x "_x
 
 " Colagem sem copiar (excluindo para o registro nulo)
-" xnoremap p "_dP
+xnoremap p "_dP
 
 " Yank para a área de transferência do sistema
 " nnoremap <leader>y "+y
@@ -35,16 +35,16 @@ let mapleader = " "
 " nnoremap <leader>Y "+Y
 
 " Exclusão sem copiar (excluindo para o registro nulo)
-" nnoremap <leader>d "_d
-" vnoremap <leader>d "_d
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
 
 " Actions
 nmap <S-h> <action>(PreviousTab)
 nmap <S-l> <action>(NextTab)
 nmap ]d <action>(GotoNextError)
 nmap [d <action>(GotoPreviousError)
-nmap <leader>fm <Action>(ReformatCode)
-nmap <leader>ff <Action>(SearchEverywhere)
+nmap <leader>fm <action>(ReformatCode)
+nmap <leader>ff <action>(SearchEverywhere)
 
 " Move lines
 vnoremap J :m '>+1<CR>gv=gv
@@ -68,3 +68,4 @@ nnoremap <leader>x :close<CR>
 set NERDTree
 let g:NERDTreeMapActivateNode='l'
 let g:NERDTreeMapJumpParent='h'
+

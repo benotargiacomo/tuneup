@@ -72,8 +72,9 @@ alias pserver="python3 -m http.server 5173"
 
 # System
 alias bat="batcat --style=auto"
-alias la="eza -la --group-directories-first --color=auto --git"
+alias ls="eza --group-directories-first --color=auto --git"
 alias ll="eza -lhS --group-directories-first --color=auto --git"
+alias la="eza -la --group-directories-first --color=auto --git"
 alias lt="eza --tree --level=2 --long --git"
 alias fs="find . -type f -exec du -h {} + | sort -rh"
 
