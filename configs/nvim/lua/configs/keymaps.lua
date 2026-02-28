@@ -1,7 +1,6 @@
 local keymap = vim.keymap.set
 
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 
 keymap("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
@@ -16,9 +15,9 @@ keymap("n", "N", "Nzzzv")
 -- Copy, Paste, Delete
 keymap("n", "x", '"_x') -- delete the character without yanking it into the default register.
 keymap("x", "p", [["_dP]]) -- paste without yanking (delete to void register)
+-- keymap({ "n", "v" }, "<leader>p", [["+p]]) -- paste from system clipboard
 -- keymap({ "n", "v" }, "<leader>y", [["+y]]) -- yanks to system clipboard
 -- keymap("n", "<leader>Y", [["+Y]]) -- yanks the current line to system clipboard
--- keymap({ "n", "v" }, "<leader>p", [["+p]]) -- paste from system clipboard
 keymap({ "n", "v" }, "<leader>d", [["_d]]) -- delete without yanking (delete to void register)
 
 -- Better Indentation
@@ -32,26 +31,19 @@ keymap("n", "<C-j>", "<C-w>j")
 keymap("n", "<C-k>", "<C-w>k")
 keymap("n", "<leader>v", "<C-w>v") -- split window vertically
 keymap("n", "<leader>h", "<C-w>s") -- split window horizontally
-keymap("n", "<leader>x", "<cmd>close<CR>") -- close current split window
+keymap("n", "<leader>x", "<C-w>c") -- close current split window
 
 -- Quick Fix
--- keymap("n", "<C-k>", "<cmd>cnext<CR>zz")
--- keymap("n", "<C-j>", "<cmd>cprev<CR>zz")
--- keymap("n", "<leader>k", "<cmd>lnext<CR>zz")
--- keymap("n", "<leader>j", "<cmd>lprev<CR>zz")
+keymap("n", "<leader>q", "<cmd>cnext<CR>zz")
+keymap("n", "<leader>Q", "<cmd>cprev<CR>zz")
+keymap("n", "<leader>l", "<cmd>lnext<CR>zz")
+keymap("n", "<leader>L", "<cmd>lprev<CR>zz")
 
 -- Buffers
 -- keymap("n", "<leader>bd", "<cmd>bd<cr>", {})
 -- keymap("n", "<leader>bda", "<cmd>%bd<cr>", {})
 -- keymap("n", "<S-h>", "<cmd>bprevious<CR>", {})
 -- keymap("n", "<S-l>", "<cmd>bnext<CR>", {})
-
--- Tabs
--- keymap("n", "<leader>to", "<cmd>tabnew<CR>")
--- keymap("n", "<leader>tx", "<cmd>tabclose<CR>")
--- keymap("n", "<leader>tn", "<cmd>tabn<CR>")
--- keymap("n", "<leader>tp", "<cmd>tabp<CR>")
--- keymap("n", "<leader>tf", "<cmd>tabnew %<CR>")
 
 -- Diagnostics
 keymap("n", "[d", vim.diagnostic.goto_prev)
@@ -62,5 +54,4 @@ keymap("n", "]d", vim.diagnostic.goto_next)
 
 -- Others
 keymap("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-keymap("n", "<leader>dv", "<cmd>vsplit | lua vim.lsp.buf.definition()<CR>")
-keymap("n", "<leader>x", "<cmd>!node %<CR>", { silent = true })
+keymap("n", "gdv", "<cmd>vsplit | lua vim.lsp.buf.definition()<CR>")
