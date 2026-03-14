@@ -60,6 +60,14 @@ SYMBOL="\[\e[38;5;217m\]➜\[\e[0m\]"
 GIT="\$(parse_git_branch)"
 PS1="${DIR}${GIT} ${SYMBOL} "
 
+# Global (-g) - ZSH
+# alias -g NE="2>/dev/null"
+# alias -g NO=">/dev/null"
+# alias -g NUL=">/dev/null 2>&1"
+# alias -g LOG="&>>output.log"
+# alias -g ELOG="2>>errors.log"
+# alias -g COPY="| wl-copy"
+
 # Tools
 alias c="code"
 alias vim="nvim"
